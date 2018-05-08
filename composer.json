@@ -7,13 +7,7 @@
     "license": "GPL-2.0+",
     "require": {
         "consolidation/Robo": "dev-block-output",
-        "consolidation/annotated-command": "~2",
-        "drupal/console-core": "~1.0.2",
-        "drush/drush": "^9.0",
-        "psr/log": "^1.0",
-        "psy/psysh": "^0.8.11",
-        "symfony/console": "^3.2",
-        "symfony/yaml": "^3.2"
+        "consolidation/annotated-command": "~2"
     },
     "repositories": [
         {
