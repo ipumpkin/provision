@@ -6,15 +6,10 @@
     "type": "project",
     "license": "GPL-2.0+",
     "require": {
-        "consolidation/Robo": "dev-block-output",
+        "drush/drush": "^9.0",
+        "drupal/console": "1.0.1",
         "consolidation/annotated-command": "~2"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:provision4/Robo.git"
-        }
-    ],
     "bin": ["bin/provision"],
     "authors": [
         {
