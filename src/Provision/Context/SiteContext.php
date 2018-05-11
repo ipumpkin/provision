@@ -215,24 +215,25 @@ class SiteContext extends PlatformContext implements ConfigurationInterface
 
                         // @TODO: This is only true for Drupal version 7.50 and up. See Provision/Config/Drupal/Settings.php
                             // We are treading more and more into the Drupal-only world, so I'm leaving this hard coded to TRUE until we develop something else.
-                    $database_settings = <<<PHP
-
+                      $db_service = $this->getSubscription('db')->service;
+                      $database_settings = <<<PHP
+                      
 // PROVISION SETTINGS
 \$databases['default']['default'] = array(
-    'driver' => \$_SERVER['db_type'],
-    'database' => \$_SERVER['db_name'],
-    'username' => \$_SERVER['db_user'],
-    'password' => \$_SERVER['db_passwd'],
-    'host' => \$_SERVER['db_host'],
+    'driver' => '{$db_service->getType()}',
+    'database' => '{$this->getSubscription('db')->getProperty('db_name')}',
+    'username' => '{$this->getSubscription('db')->getProperty('db_user')}',
+    'password' => '{$this->getSubscription('db')->getProperty('db_password')}',
+    'host' => '{$db_service->provider->getProperty('remote_host')}',
     /* Drupal interprets \$databases['db_port'] as a string, whereas Drush sees
      * it as an integer. To maintain consistency, we cast it to a string. This
      * should probably be fixed in Drush.
      */
-    'port' => (string) \$_SERVER['db_port'],
+    'port' => '{$db_service->getCreds()['port']}',
     'charset' => 'utf8mb4',
     'collation' => 'utf8mb4_general_ci',
   );
-
+  
 \$db_url['default'] = \$_SERVER['db_type'] . '://' . \$_SERVER['db_user'] . ':' . \$_SERVER['db_passwd'] . '@' . \$_SERVER['db_host'] . ':' . \$_SERVER['db_port'] . '/' . \$_SERVER['db_name'];
 
 \$settings['hash_salt'] = '$hash_salt';
